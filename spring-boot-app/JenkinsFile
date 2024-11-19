@@ -21,7 +21,7 @@ pipeline {
     }
     stage('Static Code Analysis') {
       environment {
-        SONAR_URL = "http://65.2.33.42:9000"
+        SONAR_URL = "http://65.2.33.42:9000" // Update the IPAddress of your host
       }
       steps {
         withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
@@ -47,13 +47,13 @@ pipeline {
     }
     stage('Update Deployment File') {
         environment {
-            GIT_REPO_NAME = "CICD-Pipeline"
-            GIT_USER_NAME = "PunithKosana"
+            GIT_REPO_NAME = "CICD-Pipeline" //Update Repo_Name
+            GIT_USER_NAME = "PunithKosana" // Update Username
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
-                    git config user.email "kosanapunithsai@gmail.com"
+                    git config user.email "punithabc@gmail.com" // Provide email
                     git config user.name "PunithKosana"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" spring-boot-app-manifests/deployment.yml
